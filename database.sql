@@ -4,7 +4,7 @@ CREATE TABLE "person" (
     "password" VARCHAR (1000) NOT NULL
 );
 
-CREATE TABLE "plays" (
+CREATE TABLE "play" (
 	"id" SERIAL PRIMARY KEY,
 	"title" VARCHAR (50) NOT NULL,
 	"long_title" VARCHAR (100) NOT NULL,
@@ -13,7 +13,47 @@ CREATE TABLE "plays" (
 	"alt_genre" CHAR (1)
 );
 
-INSERT INTO "plays" ("title", "long_title", "year", "genre") VALUES 
+CREATE TABLE "company"(
+	"id" SERIAL PRIMARY KEY,
+	"name" VARCHAR (200) NOT NULL,
+	"location" VARCHAR (200),
+	"url" VARCHAR (200)
+);
+
+CREATE TABLE "production" (
+	"id" SERIAL PRIMARY KEY,
+	"play_id" INT REFERENCES "play" NOT NULL,
+	"type" CHAR(4) NOT NULL
+);
+
+CREATE TABLE "live" (
+	"production_id" INT REFERENCES "production",
+	"company_id" INT REFERENCES "company",
+	"location" VARCHAR (500),
+	"start_date" DATE,
+	"end_date" DATE,
+	"url" VARCHAR (500)
+);
+
+CREATE TABLE "film" (
+	"production_id" INT references "production",
+	"release_date" DATE,
+	"title" VARCHAR (100) NOT NULL,
+	"poster_path" VARCHAR (500),
+	"loose_adapt" BOOLEAN DEFAULT FALSE,
+	"tmdb_id" INT
+);
+
+CREATE TABLE "viewing" (
+	"id" SERIAL PRIMARY KEY,
+	"production_id" INT REFERENCES "production",
+	"person_id" INT REFERENCES "person",
+	"date" DATE,
+	"rating" INT,
+	"comments" TEXT
+);
+
+INSERT INTO "play" ("title", "long_title", "year", "genre") VALUES 
 ('Twelfth Night','Twelfth Night, Or What You Will',1599,'c'),
 ('Antony and Cleopatra','Antony and Cleopatra',1606,'t'),
 ('As You Like It','As You Like It',1599,'c'),
@@ -44,7 +84,7 @@ INSERT INTO "plays" ("title", "long_title", "year", "genre") VALUES
 ('Titus Andronicus','Titus Andronicus',1593,'t'),
 ('Two Gentlemen of Verona','Two Gentlemen of Verona',1594,'c');
 
-INSERT INTO "plays" ("title", "long_title", "year", "genre", "alt_genre") VALUES 
+INSERT INTO "play" ("title", "long_title", "year", "genre", "alt_genre") VALUES 
 ('Tempest','The Tempest',1611,'c', 'r'),
 ('The Winter''s Tale','The Winter''s Tale',1610,'c', 'r'),
 ('All''s Well That Ends Well','All''s Well That Ends Well',1602,'c', 'p'),
