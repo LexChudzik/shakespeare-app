@@ -1,3 +1,25 @@
+--JOIN SETUPS
+
+--SHOW VEIW HISTORY FOR USER
+SELECT 
+	rating, comments, date, type, tmdb_id, poster_path, genre, alt_genre, loose_adapt,
+	play.title AS play_title,
+	play.id AS play_id,
+	viewing.id AS view_id,
+	production.id AS production_id,
+	film.title AS film_title,
+	company.name AS company_name,
+	live.image_url AS live_img_url,
+	live.location AS location
+FROM viewing
+JOIN production ON viewing.production_id = production.id
+LEFT JOIN live ON live.production_id = production.id
+JOIN company ON company.id = live.company_id
+LEFT JOIN film ON film.production_id = production.id
+JOIN play ON play.id = production.play_id
+WHERE person_id = $1;
+
+
 CREATE TABLE "person" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
