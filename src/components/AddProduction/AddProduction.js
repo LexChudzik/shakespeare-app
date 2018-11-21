@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 class AddProduction extends Component {
 
     state = {
-        play:'',
+        play_id:'',
+        //play_title:'',
         theater: '',
         start_date: '',
         end_date: '',
@@ -14,9 +15,12 @@ class AddProduction extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.dispatch({ type: 'ADD_PROJECT', payload: this.state });
     }
 
     handleChange = (event) => {
+        console.log(event.target.name, event.target.value);
+        
         this.setState({
             [event.target.name]: event.target.value,
           });
@@ -28,15 +32,25 @@ class AddProduction extends Component {
             <div>
                 {JSON.stringify(this.props.plays)}
                 <form onSubmit={this.handleSubmit}>
-                    <input name="theater" onChange={this.handleChange} value={this.state.theater} placeholder="Theater"/>
+                    <label for="theater">Theater:</label>
+                    <input required name="theater" id="theater" onChange={this.handleChange} value={this.state.theater} placeholder="Theater"/>
+
+                    <label for="image_url">Image Link:</label>
                     <input name="image_url" onChange={this.handleChange} value={this.state.image_url} placeholder="image url"/>
                     <input name="url" onChange={this.handleChange} value={this.state.url} placeholder="website"/>
-                    <select name="play" onChange={this.handleChange} value={this.state.play} placeholder="play">
+                    <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
                         <option value='' disabled hidden>Select Play</option>
                         {this.props.plays.map(play => (
                             <option key={play.id} value={play.id}>{play.title}</option> 
                         ))}
                     </select>
+                    <input type="date" name="start_date" onChange={this.handleChange} value={this.state.start_date}/>
+                    <input type="date" name="end_date" onChange={this.handleChange} value={this.state.end_date}/>
+                    {/* <datalist id="plays" placeholder="play">
+                        {this.props.plays.map(play => (
+                            <option key={play.id} data-id={play.id}>{play.title}</option> 
+                        ))}
+                    </datalist> */}
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
