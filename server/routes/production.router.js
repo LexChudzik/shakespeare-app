@@ -91,7 +91,7 @@ router.post('/film', (req, res)=>{
         RETURNING production_id
         )
     SELECT id FROM ins_1;`;  
-    pool.query(sqlText, [p.playid, p.release_date, p.title, p.poster_path, p.loose_adapt, p.tmdb_id])
+    pool.query(sqlText, [p.play_id, p.release_date, p.title, p.poster_path, p.loose_adapt, p.tmdb_id])
     .then((result) => {
         res.send(results.rows);
     })

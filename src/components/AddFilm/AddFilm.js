@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 const emptyState = {
     search: '',
+
     loose_adapt: false
 }
 
@@ -13,11 +14,12 @@ class AddFilm extends Component {
 
     // log input search
     handleChange = (event) => {
-        console.log('handleChange input', event.target.value);
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        console.log('handleChange input', event.target.name, event.target.value);
         this.setState({
             [event.target.name]: event.target.value
         })
+        console.log(this.state);
+        
     }
 
     // dispatch to save movie
@@ -47,13 +49,13 @@ class AddFilm extends Component {
         </form>
         <section>
             <ul>
-                {this.props.reduxState.searchResults.map((movie) =>
+                {this.props.films.map((movie) =>
                 <li key={movie.id}>
                     <h3>{movie.title}</h3>
                     <p>{movie.release_date}</p>
                     <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="test"/>
-                    <label for="loose_adapt">This is a loose adaptation</label>
-                    <input type="checkbox" name checked={this.state.loose_adapt} onChange={this.handleChange}/>
+                    <label htmlFor="loose_adapt">This is a loose adaptation</label>
+                    <input type="checkbox" name="loose_adapt" checked={this.state.loose_adapt} onChange={this.handleChange}/>
                     <button onClick={()=> {this.handleSave(movie, this.state.loose_adapt)}}>Save</button>
                 </li>
                 )}
@@ -64,6 +66,6 @@ class AddFilm extends Component {
   }
 }
 
-const mapReduxStateToProps = ( reduxState ) => ({ reduxState });
+const mapReduxStateToProps = ( state ) => ({ films: state.films, plays: state.plays });
 
 export default connect(mapReduxStateToProps)(AddFilm);
