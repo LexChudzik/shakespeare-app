@@ -1,54 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import FilmSearchItem from '../FilmSeachItem/FilmSearchItem';
 
 const emptyState = {
     search: '',
-    movie: {},
-    loose_adapt: false,
-    play_id: '',
 }
 
 class AddFilm extends Component {
 
     state = emptyState;
 
-
     // log input search
     handleChange = (event) => {
-        console.log('handleChange input', event.target.name, event.target.value);
         this.setState({
             [event.target.name]: event.target.value
         })
-        console.log(this.state);
-        
     }
-
-    // dispatch to save movie
-    handleSave = (movie) => {
-        //set movie data to state
-        this.setState({
-            movie: movie
-        })
-        // check if film title = play title
-        let match = this.props.plays.find(function(play){
-            return (play.title.toLowerCase() === movie.title.toLowerCase())
-        })
-        //if no match prompt user to tag with play title
-        if (match == null) {
-            this.setState({
-                loose_adapt: true,
-            })
-           alert('Please select a play')
-        } else {
-            this.setState({
-                play_id: match.id
-            })
-        }
-        console.log(this.state);
-        
-       // this.props.dispatch( { type: 'SEND_SAVE', payload: this.state } );
-    }
-
 
     // send state to index to search 
     handleSubmit = (event) => {
@@ -72,22 +39,9 @@ class AddFilm extends Component {
         </form>
         <section>
             <ul>
-                {this.props.films.map((movie) =>
-                <li key={movie.id}>
-                    <h3>{movie.title}</h3>
-                    <p>{movie.release_date}</p>
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="test"/>
-                    <button onClick={()=> {this.handleSave(movie)}}>Save</button>
-                    {this.props.plays.find(function(play){
-                        return (play.title.toLowerCase() === movie.title.toLowerCase())}) && 
-                    <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
-                        <option value='' disabled hidden>Select Play</option>
-                        {this.props.plays.map(play => (
-                            <option key={play.id} value={play.id}>{play.title}</option> 
-                        ))}
-                    </select>}
-                </li>
-                )}
+                {this.props.films.map((movie, i) => {
+                    return (<FilmSearchItem key={i} movie={movie} />);
+                })}
             </ul>
         </section>
       </div>
@@ -95,6 +49,6 @@ class AddFilm extends Component {
   }
 }
 
-const mapReduxStateToProps = ( state ) => ({ films: state.films, plays: state.plays });
+const mapReduxStateToProps = ( state ) => ({ films: state.films });
 
 export default connect(mapReduxStateToProps)(AddFilm);
