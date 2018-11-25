@@ -24,22 +24,25 @@ router.get('/', (req, res) => {
     });
 });
 
-//get live production detail for one production
+//get production detail for one production
 router.get('/:id', (req, res) => {
     const id = req.params.id;
     const sqlText = `SELECT 
                         production.id AS production_id,
-                        play_id, start_date, end_date, genre, alt_genre,
+                        play_id, start_date, end_date, genre, alt_genre, medium,
+                        play.title AS play_title,
                         live.location AS location,
-                        company.name AS company_name,
-                        play.title AS title,
                         live.image_url AS image_url,
-                        company.url AS company_url,
-                        live.url AS production_url
+                        live.url AS production_url,
+                        film.title AS film_title,
+                        film.loose_adapt AS loose_adapt,
+                        film.poster_path AS poster_path,
+                        film.release_date AS release_date,
+                        film.tmdb_id AS tmdb_id
                     FROM production 
-                    JOIN live ON id = live.production_id 
+                    LEFT JOIN live ON id = live.production_id
+                    LEFT JOIN film ON id = film.production_id
                     JOIN play ON play_id = play.id
-                    JOIN company ON company_id = company.id
                     WHERE production.id=$1;`;
     pool.query(sqlText, [id])
     .then((result) => { res.send(result.rows); })
@@ -66,7 +69,7 @@ router.post('/live', (req, res) => {
         )
     SELECT id FROM ins_1;`;
     pool.query(sqlText, [p.play_id, p.location, p.start_date, p.end_date, p.url, p.image_url])
-    .then((result) => {
+    .then((results) => {
         res.send(results.rows);
     })
     .catch((error) => {
@@ -78,6 +81,8 @@ router.post('/live', (req, res) => {
 //add filmed production
 router.post('/film', (req, res)=>{
     const p = req.body;
+    console.log(p);
+    
     //delete properties with blank strings from object
     Object.keys(p).forEach((key) => (p[key] === '') && delete p[key]);
     const sqlText = `WITH ins_1 AS (
@@ -91,8 +96,8 @@ router.post('/film', (req, res)=>{
         RETURNING production_id
         )
     SELECT id FROM ins_1;`;  
-    pool.query(sqlText, [p.playid, p.release_date, p.title, p.poster_path, p.loose_adapt, p.tmdb_id])
-    .then((result) => {
+    pool.query(sqlText, [p.play_id, p.release_date, p.title, p.poster_path, p.loose_adapt, p.tmdb_id])
+    .then((results) => {
         res.send(results.rows);
     })
     .catch((error) => {
