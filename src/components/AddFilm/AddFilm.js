@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 const emptyState = {
     search: '',
-
-    loose_adapt: false
+    movie: {},
+    loose_adapt: false,
+    play_id: '',
 }
 
 class AddFilm extends Component {
 
-    state = emptyState
+    state = emptyState;
 
 
     // log input search
@@ -23,9 +24,31 @@ class AddFilm extends Component {
     }
 
     // dispatch to save movie
-    handleSave = (movie, loose_adapt) => {
-        this.props.dispatch( { type: 'SEND_SAVE', payload: movie, loose_adapt } );
+    handleSave = (movie) => {
+        //set movie data to state
+        this.setState({
+            movie: movie
+        })
+        // check if film title = play title
+        let match = this.props.plays.find(function(play){
+            return (play.title.toLowerCase() === movie.title.toLowerCase())
+        })
+        //if no match prompt user to tag with play title
+        if (match == null) {
+            this.setState({
+                loose_adapt: true,
+            })
+           alert('Please select a play')
+        } else {
+            this.setState({
+                play_id: match.id
+            })
+        }
+        console.log(this.state);
+        
+       // this.props.dispatch( { type: 'SEND_SAVE', payload: this.state } );
     }
+
 
     // send state to index to search 
     handleSubmit = (event) => {
@@ -54,9 +77,15 @@ class AddFilm extends Component {
                     <h3>{movie.title}</h3>
                     <p>{movie.release_date}</p>
                     <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="test"/>
-                    <label htmlFor="loose_adapt">This is a loose adaptation</label>
-                    <input type="checkbox" name="loose_adapt" checked={this.state.loose_adapt} onChange={this.handleChange}/>
-                    <button onClick={()=> {this.handleSave(movie, this.state.loose_adapt)}}>Save</button>
+                    <button onClick={()=> {this.handleSave(movie)}}>Save</button>
+                    {this.props.plays.find(function(play){
+                        return (play.title.toLowerCase() === movie.title.toLowerCase())}) && 
+                    <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
+                        <option value='' disabled hidden>Select Play</option>
+                        {this.props.plays.map(play => (
+                            <option key={play.id} value={play.id}>{play.title}</option> 
+                        ))}
+                    </select>}
                 </li>
                 )}
             </ul>
