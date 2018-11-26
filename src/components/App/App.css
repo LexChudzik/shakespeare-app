@@ -4,6 +4,10 @@ body {
     background-color: #FFE5D9
 }
 
+h1 {
+    text-align: center;
+}
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
@@ -12,7 +16,7 @@ body {
 form {
     background-color: #B89E97;
     width: 30%;
-    height: 250px;
+    max-height: 250px;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;

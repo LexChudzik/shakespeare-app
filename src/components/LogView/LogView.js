@@ -47,7 +47,9 @@ class LogView extends Component {
         event.preventDefault();
         axios.post('/api/view', this.state)
         .then((results) => {
-            this.props.dispatch({type: 'FETCH_HISTORY', payload: this.props.user.id});
+            console.log(this.props.user.id);
+            
+            this.props.dispatch({type: 'FETCH_HISTORY', payload: this.props.user});
             alert('View logged.');
             this.props.history.push(`/home`);
         }).catch((error) => {
@@ -61,9 +63,13 @@ class LogView extends Component {
         <div>
             <ProductionDetail p={this.state.production}/>
             <form onSubmit={this.handleSubmit}>
-                <input required name="date" type="date" onChange={this.handleChange} value={this.state.date}/>
+                <label htmlFor="date">Date seen:</label>
+                <input required id="date" name="date" type="date" onChange={this.handleChange} value={this.state.date}/>
                 <Rating name="rating" onChange={this.handleRate} initialRating={this.state.rating}/>
-                <textarea name="comments" onChange={this.handleChange} value={this.state.comments}/>
+                <br/>
+                <label htmlFor="comments">Comments:</label>
+                <textarea name="comments" id="comments" onChange={this.handleChange} value={this.state.comments}/>
+                <br/>
                 <input type="submit"/>
             </form>
         </div>

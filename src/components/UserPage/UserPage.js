@@ -7,15 +7,16 @@ class UserPage extends Component {
   render() {
     return (
       <div>
-        {JSON.stringify(this.props)}
+        <h1>Productions</h1>
         {this.props.productions.map(p => {
           let logged = false;
-          this.props.history.forEach(item => {
-            if(item.production_id === p.id) { logged = true }
+          this.props.userHistory.forEach(item => {
+            if(item.production_id === p.production_id) { 
+              logged = true; }
           });
-          if(p.medium === 'live' || logged ) { 
-          return <ProductionDetail key={p.id} p={p}/>}
-          else {return}
+          if(p.medium === 'live' && !logged ) { 
+          return <ProductionDetail key={p.production_id} p={p} toLog="true" history={this.props.history}/>}
+          else {return null}
         } 
         )}
       </div>
@@ -25,7 +26,7 @@ class UserPage extends Component {
 
 const mapStateToProps = state => ({
   productions: state.production,
-  history: state.history
+  userHistory: state.history
 });
 
 // this allows us to use <App /> in index.js
