@@ -14,8 +14,8 @@ class ProductionDetail extends Component {
       <div>
         {this.props.p.film_title && <h2>{this.props.p.film_title}</h2>}
         <h3>{this.props.p.play_title}</h3>
-        {this.props.p.poster_path && <img src={this.props.p.poster_path}/>}
-        {this.props.p.image_url && <img src={this.props.p.image_url}/>}
+        {this.props.p.poster_path && <img alt="poster" src={this.props.p.poster_path}/>}
+        {this.props.p.image_url && <img alt="poster" src={this.props.p.image_url}/>}
         {this.props.p.theater && <p>{this.props.p.theater}</p>}
         {this.props.p.location && <p>{this.props.p.location}</p>}
         {this.props.p.start_date && this.props.p.end_date &&

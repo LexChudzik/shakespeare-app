@@ -9,7 +9,8 @@ const emptyState = {
     rating: 0,
     date: '',
     comments: '',
-    production: {}
+    production: {},
+    user: ''
 }
 
 class LogView extends Component {
@@ -17,6 +18,7 @@ class LogView extends Component {
     state = emptyState;
 
     componentWillMount () {
+        this.setState({user: this.props.user.id})
         const production_id = this.props.match.params.productionId;
         axios.get(`/api/production/${production_id}`)
           .then((results) => {
@@ -45,11 +47,11 @@ class LogView extends Component {
         event.preventDefault();
         axios.post('/api/view', this.state)
         .then((results) => {
-            console.log(results);
-            
+            this.props.dispatch({type: 'FETCH_HISTORY'});
+            alert('View logged.');
+            this.props.history.push(`/home`);
         }).catch((error) => {
             console.log('error posting production to server', error);
-            
         })
     }
 
@@ -59,7 +61,7 @@ class LogView extends Component {
         <div>
             <ProductionDetail p={this.state.production}/>
             <form onSubmit={this.handleSubmit}>
-                <input name="date" type="date" onChange={this.handleChange} value={this.state.date}/>
+                <input required name="date" type="date" onChange={this.handleChange} value={this.state.date}/>
                 <Rating name="rating" onChange={this.handleRate} initialRating={this.state.rating}/>
                 <textarea name="comments" onChange={this.handleChange} value={this.state.comments}/>
                 <input type="submit"/>
@@ -69,6 +71,6 @@ class LogView extends Component {
     }
 }
 
-const mapReduxStateToProps = ( state ) => ({ production: state.producition });
+const mapReduxStateToProps = ( state ) => ({ user: state.user });
 
 export default connect(mapReduxStateToProps)(LogView);
