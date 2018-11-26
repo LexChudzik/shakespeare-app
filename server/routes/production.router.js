@@ -2,20 +2,25 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//get current or future live productions
+//get current all productions
 router.get('/', (req, res) => {
   const sqlText = `SELECT 
                     production.id AS production_id,
-                    play_id, start_date, end_date,
+                    play_id, start_date, end_date, genre, alt_genre, medium,
+                    play.title AS play_title,
+                    live.theater AS theater,
                     live.location AS location,
-                    company.name AS company_name,
-                    play.title AS title,
-                    live.image_url AS image_url
+                    live.image_url AS image_url,
+                    live.url AS production_url,
+                    film.title AS film_title,
+                    film.loose_adapt AS loose_adapt,
+                    film.poster_path AS poster_path,
+                    film.release_date AS release_date,
+                    film.tmdb_id AS tmdb_id
                   FROM production 
-                  JOIN live ON id = live.production_id 
-                  JOIN play ON play_id = play.id
-                  JOIN company ON company_id = company.id
-                  WHERE live.end_date > NOW();`;
+                  LEFT JOIN live ON id = live.production_id
+                  LEFT JOIN film ON id = film.production_id
+                  JOIN play ON play_id = play.id;`;
   pool.query(sqlText)
   .then((result) => { res.send(result.rows); })
   .catch((err) => {

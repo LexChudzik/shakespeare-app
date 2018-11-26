@@ -1,5 +1,5 @@
 const productionReducer = (state = [], action) =>{
-  if (action.type === 'SET_PRODUCTION') {
+  if (action.type === 'SET_PRODUCTIONS') {
       return action.payload;
   }
   return state;

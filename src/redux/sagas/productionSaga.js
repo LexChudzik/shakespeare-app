@@ -19,9 +19,20 @@ function* fetchProduction(action) {
   }
 }
 
+
+function* fetchProductions(action) {
+  try {
+    const response = yield axios.get(`/api/production`);
+    yield put({ type: 'SET_PRODUCTIONS', payload: response.data});
+  } catch (error) {
+    console.log('get production error', error);
+  }
+}
+
 function* productionSaga() {
     yield takeLatest('SEND_FILM', sendFilm);
     yield takeLatest( 'FETCH_PRODUCTION', fetchProduction);
+    yield takeLatest( 'FETCH_PRODUCTIONS', fetchProductions);
   }
 
 export default productionSaga;

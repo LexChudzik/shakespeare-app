@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   plays, //will have the array of all plays
   films, //stores search results from tmdb
   history, //will have user history
-  production, //will have details of a produciton
+  production, //will all productions
 });
 
 export default rootReducer;

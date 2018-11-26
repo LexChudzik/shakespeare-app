@@ -18,6 +18,7 @@ class AddProduction extends Component {
         event.preventDefault();
         axios.post('/api/production/live', this.state)
             .then((results) => {
+                this.props.dispatch({type: 'FETCH_PRODUCTIONS' })
                 const productionId = (results.data[0].id);
                 if ( window.confirm('Producution added. Log viewing?') ) {
                     this.props.history.push(`/log/${productionId}`)
