@@ -3,13 +3,12 @@
     font-weight: 700;
     display: inline-block;
     color: #FFDBB5;
-    padding-left: 10px;
     text-align: center;
 }
 
 .nav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 180px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1;
   top: 0; 
@@ -24,7 +23,7 @@
   color: #FFDBB5;
   background-color: #432E36;
   text-align: center;
-  padding: 10px 20px;
+  padding: 10px;
   text-decoration: none;
   font-size: 20px;
   display: block;

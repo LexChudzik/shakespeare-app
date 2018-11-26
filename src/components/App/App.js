@@ -9,7 +9,7 @@ import {
 import {connect} from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import AddProduction from '../AddProduction/AddProduction';
 import AddFilm from '../AddFilm/AddFilm';
 import LogView from '../LogView/LogView';
+import UserHistory from '../UserHistory/UserHistory';
 
 import './App.css';
 
@@ -27,7 +28,6 @@ class App extends Component {
     this.props.dispatch({type: 'FETCH_USER'});
     this.props.dispatch({type: 'FETCH_PLAYS'});
     this.props.dispatch({type: 'FETCH_PRODUCTIONS'});
-    this.props.dispatch({type: 'FETCH_HISTORY'});
   }
 
   render() {
@@ -69,6 +69,11 @@ class App extends Component {
               path="/log/:productionId"
               component={LogView}
             />
+            <ProtectedRoute
+              exact
+              path="/userHisory"
+              component={UserHistory}
+            />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             <ProtectedRoute
@@ -79,7 +84,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
   )}
