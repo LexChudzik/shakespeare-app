@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AddProduction from '../AddProduction/AddProduction';
 import AddFilm from '../AddFilm/AddFilm';
+import LogView from '../LogView/LogView';
 
 import './App.css';
 
@@ -25,6 +26,8 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
     this.props.dispatch({type: 'FETCH_PLAYS'});
+    this.props.dispatch({type: 'FETCH_PRODUCTIONS'});
+    this.props.dispatch({type: 'FETCH_HISTORY'});
   }
 
   render() {
@@ -60,6 +63,11 @@ class App extends Component {
               exact
               path="/home"
               component={UserPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/log/:productionId"
+              component={LogView}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

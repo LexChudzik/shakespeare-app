@@ -13,6 +13,8 @@ const userRouter = require('./routes/user.router');
 const playRouter = require('./routes/play.router');
 const productionRouter = require('./routes/production.router');
 const tmdbRouter = require('./routes/tmdb.router');
+const viewRouter = require('./routes/viewing.router');
+const historyRouter = require('./routes/history.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +32,8 @@ app.use('/api/user', userRouter);
 app.use('/api/play', playRouter);
 app.use('/api/production', productionRouter);
 app.use('/api/tmdb', tmdbRouter);
+app.use('/api/view', viewRouter);
+app.use('/api/history', historyRouter);
 
 // Serve static files
 app.use(express.static('build'));
