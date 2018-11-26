@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//get current all productions
+//get all productions
 router.get('/', (req, res) => {
   const sqlText = `SELECT 
                     production.id AS production_id,

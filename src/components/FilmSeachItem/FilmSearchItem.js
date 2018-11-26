@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class FilmSearchItem extends Component {
 
@@ -32,11 +33,19 @@ class FilmSearchItem extends Component {
         // dispatch to save movie
     handleSave = (event) => {
         event.preventDefault();
-        this.props.dispatch( { type: 'SEND_FILM', payload: this.state } );
-        let log = window.confirm("Film added. Log veiwing now?");
-        if (log) {
-            //move to log page
-        }
+        axios.post('/api/production/film', this.state)
+            .then((results) => {
+                this.props.dispatch({type: 'FETCH_PRODUCTIONS' });
+                const productionId = (results.data[0].id);
+                if ( window.confirm('Producution added. Log viewing?') ) {
+                    this.props.history.push(`/log/${productionId}`)
+                } else {
+                    this.props.history.push(`/home`)
+                }
+            }).catch((error) => {
+                console.log('error posting production to server', error);
+                
+            })
     }
 
     handleChange = (event) => {
@@ -73,6 +82,6 @@ class FilmSearchItem extends Component {
     }
 }
 
-const mapReduxStateToProps = ( state ) => ({ plays: state.plays, production: state.production });
+const mapStateToProps = ( state ) => ({ plays: state.plays, production: state.production });
 
-export default connect(mapReduxStateToProps)(FilmSearchItem);
+export default connect(mapStateToProps)(FilmSearchItem);

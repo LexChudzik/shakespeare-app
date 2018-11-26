@@ -22,10 +22,11 @@ class AddProduction extends Component {
                 const productionId = (results.data[0].id);
                 if ( window.confirm('Producution added. Log viewing?') ) {
                     this.props.history.push(`/log/${productionId}`)
+                } else {
+                    this.props.history.push(`/home`)
                 }
             }).catch((error) => {
-                console.log('error posting production to server', error);
-                
+                console.log('error posting production to server', error); 
             })
     }
 

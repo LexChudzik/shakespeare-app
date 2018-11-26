@@ -47,7 +47,7 @@ class LogView extends Component {
         event.preventDefault();
         axios.post('/api/view', this.state)
         .then((results) => {
-            this.props.dispatch({type: 'FETCH_HISTORY'});
+            this.props.dispatch({type: 'FETCH_HISTORY', payload: this.props.user.id});
             alert('View logged.');
             this.props.history.push(`/home`);
         }).catch((error) => {

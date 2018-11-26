@@ -1,0 +1,13 @@
+.card {
+    background-color: #d49c6d;
+    width: 30%;
+    align-content: center;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 2px;
+}
+
+img {
+    max-width: 200px;
+    max-height: 200px;
+}

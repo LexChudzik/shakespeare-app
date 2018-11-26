@@ -40,7 +40,7 @@ class AddFilm extends Component {
         <section>
             <ul>
                 {this.props.films.map((movie, i) => {
-                    return (<FilmSearchItem key={i} movie={movie} />);
+                    return (<FilmSearchItem key={i} movie={movie} history={this.props.history}/>);
                 })}
             </ul>
         </section>
