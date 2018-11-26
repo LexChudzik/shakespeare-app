@@ -21,6 +21,7 @@ form {
     padding: 25px;
     border-radius: 2px;
     text-align: center;
+    align-content: center;
 }
 
 input {
@@ -43,6 +44,11 @@ input {
   background-color: #260C1A;
 }
 
+.main {
+    margin-left: 180px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
     background:none;
@@ -53,4 +59,31 @@ input {
     outline:0;
     border-bottom:1px solid #444; 
     cursor: pointer;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    background-color: #B89E97;
+    width: 30%;
+    align-content: center;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 2px;
+    text-align: center;
+}
+
+button {
+    display: block;
+    max-width: 300px;
+    margin: auto;
+}
+
+img {
+    max-width: 300px;
+    max-height: 500px;
 }

@@ -42,7 +42,7 @@ class ProductionDetail extends Component {
 
         {this.props.p.rating && <Rating initialRating={this.props.p.rating} readonly/>}
 
-        {this.props.p.comment && <p>{this.props.p.commment}</p>}
+        {this.props.p.comments && <p>{this.props.p.comments}</p>}
 
         {this.props.toLog && <button onClick={this.goToLog}>LOG VIEW</button>}
       </div>

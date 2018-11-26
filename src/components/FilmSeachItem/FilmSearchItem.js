@@ -33,19 +33,26 @@ class FilmSearchItem extends Component {
         // dispatch to save movie
     handleSave = (event) => {
         event.preventDefault();
-        axios.post('/api/production/film', this.state)
+        let production_id = '';
+        this.props.production.forEach(p => {
+            if (p.tmdb_id === this.state.tmdb_id) {
+                production_id = p.production_id;
+                return
+            }
+        });
+        if (production_id) {
+            console.log('already in');
+            this.props.history.push(`/log/${production_id}`);
+        } else {
+            axios.post('/api/production/film', this.state)
             .then((results) => {
                 this.props.dispatch({type: 'FETCH_PRODUCTIONS' });
-                const productionId = (results.data[0].id);
-                if ( window.confirm('Producution added. Log viewing?') ) {
-                    this.props.history.push(`/log/${productionId}`)
-                } else {
-                    this.props.history.push(`/home`)
-                }
+                production_id = (results.data[0].id);
+                this.props.history.push(`/log/${production_id}`);
             }).catch((error) => {
                 console.log('error posting production to server', error);
-                
             })
+        }
     }
 
     handleChange = (event) => {
@@ -60,7 +67,7 @@ class FilmSearchItem extends Component {
 
     render() {
         return (
-            <li>
+            <li className="card">
                 <h3>{this.props.movie.title}</h3>
                 <p>{this.props.movie.release_date}</p>
                 {this.props.movie.poster_path &&
@@ -75,7 +82,7 @@ class FilmSearchItem extends Component {
                 </select>}
                 <label htmlFor="loose_adapt">This is a loose adaptaion:</label>
                 <input type="checkbox" id="loose_adapt" value={this.state.loose_adapt} name="loose_adapt" onChange={this.handleChange}/>
-                <button type="submit">Save</button>
+                <button type="submit">Log Viewing</button>
                 </form>
             </li>
         )

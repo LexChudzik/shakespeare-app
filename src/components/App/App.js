@@ -20,6 +20,7 @@ import AddProduction from '../AddProduction/AddProduction';
 import AddFilm from '../AddFilm/AddFilm';
 import LogView from '../LogView/LogView';
 import UserHistory from '../UserHistory/UserHistory';
+import Stats from '../Stats/Stats'
 
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          <div className="main">
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -71,6 +73,11 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/stats"
+              component={Stats}
+            />
+            <ProtectedRoute
+              exact
               path="/userHisory"
               component={UserHistory}
             />
@@ -84,6 +91,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          </div>
           {/* <Footer /> */}
         </div>
       </Router>
