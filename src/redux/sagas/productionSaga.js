@@ -21,7 +21,7 @@ function* fetchProduction(action) {
 
 function* productionSaga() {
     yield takeLatest('SEND_FILM', sendFilm);
-    yield takeLatest( 'FETCH_PRODUCTION', fetchProduction)
+    yield takeLatest( 'FETCH_PRODUCTION', fetchProduction);
   }
 
 export default productionSaga;
