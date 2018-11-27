@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Chart from 'chart.js';
+//import Chart from 'chart.js';
 
 class Stats extends Component {
 
     render() {
-
-    const genres = new Chart(ctx, {
-      type: 'bar',
-      data: data,
-      options: options
-    });
-
+      
       return (
         <div>
           <h1>Stats</h1>
-          {JSON.stringify(this.props.stats)}
+          {JSON.stringify(this.props.list)}
         </div>
       )
     }
@@ -23,7 +17,7 @@ class Stats extends Component {
   
   const mapStateToProps = state => ({
       history: state.history,
-      stats: state.stats,
+      list: state.list,
       plays: state.plays,
     });
   

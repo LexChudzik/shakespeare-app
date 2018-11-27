@@ -20,9 +20,7 @@ router.get('/:id', (req, res) => {
                       WHERE person_id = $1
                       ORDER BY date desc;`; 
     pool.query(sqlText, [id])
-    .then((result) => { 
-      console.log('history sresutl', result.rows);
-      
+    .then((result) => {
       res.send(result.rows); })
     .catch((err) => {
       console.log('error completing request for user history', err);

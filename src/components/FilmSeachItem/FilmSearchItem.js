@@ -11,11 +11,15 @@ class FilmSearchItem extends Component {
         title: this.props.movie.title,
         play_id: '',
         loose_adapt: false,
-        match: false
+        match: false,
+        logged: false,
+        onList: false
     }
 
     componentDidMount() {
         this.checkTitle();
+        this.checkLog();
+        this.checkList();
     }
 
     checkTitle = () => {
@@ -28,6 +32,26 @@ class FilmSearchItem extends Component {
                 match: true
             })
         }
+    }
+
+    checkLog = () => {
+        this.props.userHistory.forEach(item => {
+            if (item.tmdb_id === this.props.movie.id) {
+                this.setState({
+                    logged: true
+                })
+            }
+        });
+    }
+
+    checkList = () => {
+        this.props.list.forEach(item => {
+            if (item.tmdb_id === this.props.movie.id) {
+                this.setState({
+                    onList: true
+                })
+            }
+        });
     }
 
         // dispatch to save movie
@@ -69,6 +93,8 @@ class FilmSearchItem extends Component {
         return (
             <li className="card">
                 <h3>{this.props.movie.title}</h3>
+                {this.state.onList && <p>on list</p>}
+                {this.state.logged && <p>logged</p>}
                 <p>{this.props.movie.release_date}</p>
                 {this.props.movie.poster_path &&
                     <img src={`https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}`} alt="poster"/>}
@@ -89,6 +115,11 @@ class FilmSearchItem extends Component {
     }
 }
 
-const mapStateToProps = ( state ) => ({ plays: state.plays, production: state.production });
+const mapStateToProps = ( state ) => ({ 
+    plays: state.plays, 
+    production: state.production,
+    list: state.list,
+    userHistory: state.history, 
+});
 
 export default connect(mapStateToProps)(FilmSearchItem);

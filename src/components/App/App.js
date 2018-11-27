@@ -20,7 +20,8 @@ import AddProduction from '../AddProduction/AddProduction';
 import AddFilm from '../AddFilm/AddFilm';
 import LogView from '../LogView/LogView';
 import UserHistory from '../UserHistory/UserHistory';
-import Stats from '../Stats/Stats'
+import Stats from '../Stats/Stats';
+import List from '../List/List';
 
 import './App.css';
 
@@ -80,6 +81,11 @@ class App extends Component {
               exact
               path="/userHisory"
               component={UserHistory}
+            />
+            <ProtectedRoute
+              exact
+              path="/list"
+              component={List}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

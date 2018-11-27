@@ -21,6 +21,7 @@ function* fetchUser() {
     yield put({ type: 'SET_USER', payload: response.data });
     //get user history with user id
     yield put({ type: 'FETCH_HISTORY', payload: response.data });
+    yield put({ type: 'FETCH_LIST', payload: response.data });
   } catch (error) {
     console.log('User get request failed', error);
   }

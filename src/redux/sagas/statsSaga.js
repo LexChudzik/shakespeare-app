@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 function playsSeen(views) {
   let playIds = views.map(v => {
@@ -14,14 +14,14 @@ function* updateStats(action) {
   try {
     const all = action.payload;
     const allFilms = all.filter(v => v.medium === 'film');
-    const exactFilms = allFilms.filter(v => !v.loose_adapt);
+    const noLoose = all.filter(v => !v.loose_adapt);
     const live = all.filter(v => v.medium === 'live');
     const playsSeenAll = playsSeen(all);
     const playsSeenLive = playsSeen(live);
     const stats = {
       all: all,
       allFilms: allFilms,
-      exactFilms: exactFilms,
+      noLoose: noLoose,
       live: live,
       playsSeenAll: playsSeenAll,
       playsSeenLive: playsSeenLive,

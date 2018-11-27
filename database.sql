@@ -75,6 +75,11 @@ CREATE TABLE "viewing" (
 	"comments" TEXT
 );
 
+CREATE TABLE "list" (
+	"production_id" INT REFERENCES "production",
+	"person_id" INT REFERENCES "person"
+);
+
 INSERT INTO "play" ("title", "long_title", "year", "genre") VALUES 
 ('Twelfth Night','Twelfth Night, Or What You Will',1599,'c'),
 ('Antony and Cleopatra','Antony and Cleopatra',1606,'t'),
