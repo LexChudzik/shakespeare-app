@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
+import Chart from 'chart.js';
 
 class Stats extends Component {
 
     render() {
+
+    const genres = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: options
+    });
+
       return (
         <div>
           <h1>Stats</h1>

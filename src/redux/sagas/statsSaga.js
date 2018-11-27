@@ -1,17 +1,30 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
+function playsSeen(views) {
+  let playIds = views.map(v => {
+    return v.play_id
+  });
+  let uniquePlayIds = playIds.filter((p, i) => {
+    return playIds.indexOf(p) >= i;
+  });
+  return uniquePlayIds;
+}
+
 function* updateStats(action) {
   try {
     const all = action.payload;
     const allFilms = all.filter(v => v.medium === 'film');
     const exactFilms = allFilms.filter(v => !v.loose_adapt);
     const live = all.filter(v => v.medium === 'live');
-    const comedy = all.filter(v => v.genre === 'c')
+    const playsSeenAll = playsSeen(all);
+    const playsSeenLive = playsSeen(live);
     const stats = {
-      allCount: all.length,
-      allFilmsCount: allFilms.length,
-      exactFilmsCount: exactFilms.length,
-      liveCount: live.length,
+      all: all,
+      allFilms: allFilms,
+      exactFilms: exactFilms,
+      live: live,
+      playsSeenAll: playsSeenAll,
+      playsSeenLive: playsSeenLive,
     };
 
   yield put( {type: 'SET_STATS', payload: stats } );
