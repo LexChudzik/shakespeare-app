@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Rating from 'react-rating';
 import './ProductionDetail.css';
+import ToggleListButton from '../ToggleListButton/ToggleListButton';
 
 
 class ProductionDetail extends Component {
@@ -45,6 +46,8 @@ class ProductionDetail extends Component {
         {this.props.p.comments && <p>{this.props.p.comments}</p>}
 
         {this.props.toLog && <button onClick={this.goToLog}>LOG VIEW</button>}
+
+        {/* <ToggleListButton production_id={this.props.p.production_id}/> */}
       </div>
   )}
 }

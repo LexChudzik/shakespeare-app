@@ -7,7 +7,7 @@ router.get('/:id', (req, res) => {
   const id = req.params.id;
   const sqlText = `SELECT 
                     list.id AS list_id,
-                    list.production_id AS prduction_id,
+                    list.production_id AS production_id,
                     play.title AS play_title,
                     film.title AS film_title,
                     medium, release_date, poster_path, loose_adapt, tmdb_id, location, 
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
   const l = req.body;
   const sqlText = `INSERT INTO list (production_id, person_id)
                     VALUES ($1, $2);`;
-  pool.query(sqlText, [l.production_id, l.user])
+  pool.query(sqlText, [l.production_id, l.user.id])
   .then((result) => {
     res.sendStatus(200);})
   .catch((err) => {
