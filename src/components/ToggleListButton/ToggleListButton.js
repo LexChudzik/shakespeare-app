@@ -18,7 +18,7 @@ class ToggleListButton extends Component {
   addToList = () => {
     axios.post('/api/list', this.state)
       .then((results) => {
-        this.props.dispatch({type: 'FETCH_LIST', payload: this.props.user});
+        this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
     }).catch((error) => {
       console.log('error adding to list', error);
     })
@@ -27,7 +27,7 @@ class ToggleListButton extends Component {
   removeFromList = () => {
     axios.delete(`/api/list/${this.state.list_id}`)
     .then((results) => {
-      this.props.dispatch({type: 'FETCH_LIST', payload: this.props.user});
+      this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
       
     }).catch((error) => {
       console.log('error removing from to list', error);

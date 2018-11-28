@@ -49,7 +49,7 @@ class LogView extends Component {
         .then((results) => {
             console.log(this.props.user.id);
             
-            this.props.dispatch({type: 'FETCH_HISTORY', payload: this.props.user});
+            this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
             alert('View logged.');
             this.props.history.push(`/home`);
         }).catch((error) => {

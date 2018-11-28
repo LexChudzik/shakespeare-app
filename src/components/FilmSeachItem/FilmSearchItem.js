@@ -70,7 +70,7 @@ class FilmSearchItem extends Component {
         } else {
             axios.post('/api/production/film', this.state)
             .then((results) => {
-                this.props.dispatch({type: 'FETCH_PRODUCTIONS' });
+                this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user });
                 production_id = (results.data[0].id);
                 this.props.history.push(`/log/${production_id}`);
             }).catch((error) => {
@@ -120,6 +120,7 @@ const mapStateToProps = ( state ) => ({
     production: state.production,
     list: state.list,
     userHistory: state.history, 
+    user: state.user,
 });
 
 export default connect(mapStateToProps)(FilmSearchItem);
