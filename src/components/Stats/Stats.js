@@ -9,7 +9,7 @@ class Stats extends Component {
       return (
         <div>
           <h1>Stats</h1>
-          {JSON.stringify(this.props.list)}
+          {JSON.stringify(this.props.stats)}
         </div>
       )
     }
@@ -18,6 +18,7 @@ class Stats extends Component {
   const mapStateToProps = state => ({
     productions: state.production,
     plays: state.plays,
+    stats: state.stats
   });
   
   export default connect(mapStateToProps)(Stats);
