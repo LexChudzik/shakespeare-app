@@ -10,7 +10,7 @@ class UserHistory extends Component {
       <div>
         <h1>History</h1>
         {this.props.productions.map(p => 
-          p.viewing_id && <ProductionDetail key={p.viewing_id} p={p}/>
+          p.viewing_id && <ProductionDetail key={p.viewing_id} p={p} history={this.props.history}/>
         )}
       </div>
     )

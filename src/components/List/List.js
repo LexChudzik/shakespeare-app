@@ -10,7 +10,7 @@ class List extends Component {
       <div>
         <h1>To See</h1>
         {this.props.productions.map(p => 
-          p.list_id && <ProductionDetail key={p.list_id} p={p}/>
+          p.list_id && <ProductionDetail key={p.list_id} p={p} history={this.props.history}/>
         )}
       </div>
     )

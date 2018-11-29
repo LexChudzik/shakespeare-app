@@ -16,9 +16,8 @@ class Stats extends Component {
   }
   
   const mapStateToProps = state => ({
-      history: state.history,
-      list: state.list,
-      plays: state.plays,
-    });
+    productions: state.production,
+    plays: state.plays,
+  });
   
   export default connect(mapStateToProps)(Stats);
