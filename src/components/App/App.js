@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
     this.props.dispatch({type: 'FETCH_PLAYS'});
-//    this.props.dispatch({type: 'FETCH_PRODUCTIONS'});
   }
 
   render() {

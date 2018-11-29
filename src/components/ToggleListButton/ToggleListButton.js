@@ -6,13 +6,9 @@ import axios from 'axios';
 class ToggleListButton extends Component {
 
   state = {
-    production_id: this.props.production_id,
+    production_id: this.props.p.production_id,
     user: this.props.user,
-    list_id: false
-  }
-
-  componentDidMount() {
-    this.checkList();
+    list_id: this.props.p.list_id
   }
 
   addToList = () => {
@@ -34,15 +30,6 @@ class ToggleListButton extends Component {
     })
   }
 
-  checkList = () => {
-  this.props.list.forEach(item => {
-    if (item.production_id === this.props.production_id) {
-      this.setState({list_id: item.list_id});
-      console.log(this.state);
-      return;
-    }
-  })}
-
   render() {
     if (this.state.list_id) {
       return (
@@ -57,7 +44,6 @@ class ToggleListButton extends Component {
 
 const mapReduxStateToProps = ( state ) => ({ 
   user: state.user,
-  list: state.list
 });
   
 export default connect(mapReduxStateToProps)(ToggleListButton);

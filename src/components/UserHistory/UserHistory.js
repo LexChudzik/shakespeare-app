@@ -9,8 +9,8 @@ class UserHistory extends Component {
     return (
       <div>
         <h1>History</h1>
-        {this.props.userHistory.map(p => 
-          <ProductionDetail key={p.id} p={p}/>
+        {this.props.productions.map(p => 
+          p.viewing_id && <ProductionDetail key={p.viewing_id} p={p}/>
         )}
       </div>
     )
@@ -19,7 +19,6 @@ class UserHistory extends Component {
 
 const mapStateToProps = state => ({
     productions: state.production,
-    userHistory: state.history
   });
 
 export default connect(mapStateToProps)(UserHistory);

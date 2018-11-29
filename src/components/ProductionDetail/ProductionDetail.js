@@ -45,9 +45,9 @@ class ProductionDetail extends Component {
 
         {this.props.p.comments && <p>{this.props.p.comments}</p>}
 
-        {this.props.toLog && <button onClick={this.goToLog}>LOG VIEW</button>}
+        {!this.props.p.viewing_id && <button onClick={this.goToLog}>LOG VIEW</button>}
 
-        {/* <ToggleListButton production_id={this.props.p.production_id}/> */}
+        {!this.props.p.viewing_id && <ToggleListButton p={this.props.p}/>}
       </div>
   )}
 }

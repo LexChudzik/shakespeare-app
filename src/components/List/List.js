@@ -9,8 +9,8 @@ class List extends Component {
     return (
       <div>
         <h1>To See</h1>
-        {this.props.list.map(p => 
-          <ProductionDetail key={p.list_id} p={p}/>
+        {this.props.productions.map(p => 
+          p.list_id && <ProductionDetail key={p.list_id} p={p}/>
         )}
       </div>
     )
@@ -19,7 +19,6 @@ class List extends Component {
 
 const mapStateToProps = state => ({
     productions: state.production,
-    list: state.list
   });
 
 export default connect(mapStateToProps)(List);

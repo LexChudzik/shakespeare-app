@@ -22,6 +22,8 @@ function* fetchProduction(action) {
 
 function* fetchProductions(action) {
   try {
+    console.log(action);
+    
     const response = yield axios.get(`/api/production/${action.payload.id}`);
     yield put({ type: 'SET_PRODUCTIONS', payload: response.data});
   } catch (error) {

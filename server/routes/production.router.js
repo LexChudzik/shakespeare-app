@@ -28,8 +28,8 @@ router.get('/:id', (req, res) => {
                   JOIN play ON play_id = play.id;`;
   pool.query(sqlText, [user])
   .then((result) => { res.send(result.rows); })
-  .catch((err) => {
-    console.log('Error completing SELECT production query', err);
+  .catch((error) => {
+    console.log('error making database query', sqlText, error);
     res.sendStatus(500);
   });
 });
