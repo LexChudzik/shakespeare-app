@@ -20,10 +20,10 @@ function* updateStats(action) {
     const playsSeen = findPlaysSeen(seen);
     const playsSeenLive = findPlaysSeen(seenLive);
     const stats = {
-      seen: seen,
-      seenLive: seenLive,
-      playsSeen: playsSeen,
-      playsSeenLive: playsSeenLive
+      seen: seen,     //array of every view
+      seenLive: seenLive, //array of all live views
+      playsSeen: playsSeen,  //array of plays seen
+      playsSeenLive: playsSeenLive  //array of plays seen live
     };
 
   yield put( {type: 'SET_STATS', payload: stats } );
