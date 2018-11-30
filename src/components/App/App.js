@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
     this.props.dispatch({type: 'FETCH_PLAYS'});
-    this.props.dispatch({type: 'FETCH_PRODUCTIONS'});
   }
 
   render() {
@@ -53,11 +52,6 @@ class App extends Component {
               path="/add"
               component={AddProduction}
             />
-            <Route
-              exact
-              path="/film"
-              component={AddFilm}
-            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -66,6 +60,11 @@ class App extends Component {
               exact
               path="/home"
               component={UserPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/film"
+              component={AddFilm}
             />
             <ProtectedRoute
               exact

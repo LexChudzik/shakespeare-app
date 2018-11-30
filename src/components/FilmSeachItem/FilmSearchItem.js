@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import ToggleListButton from '../ToggleListButton/ToggleListButton';
 
 class FilmSearchItem extends Component {
 
@@ -12,14 +13,30 @@ class FilmSearchItem extends Component {
         play_id: '',
         loose_adapt: false,
         match: false,
-        logged: false,
-        onList: false
+        production: { 
+            production_id: ''
+        }
     }
 
     componentDidMount() {
+        this.checkProductions();
         this.checkTitle();
-        this.checkLog();
-        this.checkList();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.productions !== prevProps.productions) {
+          this.checkProductions();
+        }
+      }
+
+    checkProductions = () => {
+        this.props.productions.forEach(p =>{
+            if (p.tmdb_id === this.props.movie.id) {
+                this.setState({
+                    production: p
+                })
+            }
+        })        
     }
 
     checkTitle = () => {
@@ -34,44 +51,19 @@ class FilmSearchItem extends Component {
         }
     }
 
-    checkLog = () => {
-        this.props.userHistory.forEach(item => {
-            if (item.tmdb_id === this.props.movie.id) {
-                this.setState({
-                    logged: true
-                })
-            }
-        });
-    }
-
-    checkList = () => {
-        this.props.list.forEach(item => {
-            if (item.tmdb_id === this.props.movie.id) {
-                this.setState({
-                    onList: true
-                })
-            }
-        });
-    }
-
-        // dispatch to save movie
+    // dispatch to save movie
     handleSave = (event) => {
         event.preventDefault();
-        let production_id = '';
-        this.props.production.forEach(p => {
-            if (p.tmdb_id === this.state.tmdb_id) {
-                production_id = p.production_id;
-                return
-            }
-        });
-        if (production_id) {
+        if (this.state.production.production_id !== '') {
             console.log('already in');
-            this.props.history.push(`/log/${production_id}`);
+            this.props.history.push(`/log/${this.state.production.production_id}`);
         } else {
             axios.post('/api/production/film', this.state)
             .then((results) => {
-                this.props.dispatch({type: 'FETCH_PRODUCTIONS' });
-                production_id = (results.data[0].id);
+                this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user });
+                let production_id = (results.data[0].id);
+                console.log(production_id);
+                
                 this.props.history.push(`/log/${production_id}`);
             }).catch((error) => {
                 console.log('error posting production to server', error);
@@ -93,23 +85,22 @@ class FilmSearchItem extends Component {
         return (
             <li className="card">
                 <h3>{this.props.movie.title}</h3>
-                {this.state.onList && <p>on list</p>}
-                {this.state.logged && <p>logged</p>}
                 <p>{this.props.movie.release_date}</p>
                 {this.props.movie.poster_path &&
                     <img src={`https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}`} alt="poster"/>}
                 <form onSubmit={this.handleSave}>
-                {(this.state.match === false) && 
-                <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
-                    <option value='' disabled hidden>Select Play</option>
-                    {this.props.plays.map(play => (
-                        <option key={play.id} value={play.id}>{play.title}</option> 
-                    ))}
-                </select>}
-                <label htmlFor="loose_adapt">This is a loose adaptaion:</label>
-                <input type="checkbox" id="loose_adapt" value={this.state.loose_adapt} name="loose_adapt" onChange={this.handleChange}/>
-                <button type="submit">Log Viewing</button>
+                    {(this.state.match === false) && 
+                    <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
+                        <option value='' disabled hidden>Select Play</option>
+                        {this.props.plays.map(play => (
+                            <option key={play.id} value={play.id}>{play.title}</option> 
+                        ))}
+                    </select>}
+                    <label htmlFor="loose_adapt">This is a loose adaptaion:</label>
+                    <input type="checkbox" id="loose_adapt" value={this.state.loose_adapt} name="loose_adapt" onChange={this.handleChange}/>
+                    <button type="submit">Log Viewing</button>
                 </form>
+                {!this.state.production.viewing_id && <ToggleListButton p={this.state.production} m={this.state}/>}
             </li>
         )
     }
@@ -117,9 +108,8 @@ class FilmSearchItem extends Component {
 
 const mapStateToProps = ( state ) => ({ 
     plays: state.plays, 
-    production: state.production,
-    list: state.list,
-    userHistory: state.history, 
+    productions: state.production,
+    user: state.user,
 });
 
 export default connect(mapStateToProps)(FilmSearchItem);

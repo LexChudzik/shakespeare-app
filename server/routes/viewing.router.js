@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//get array of plays from db
+//add viewing
 router.post('/', (req, res) => {
     const v = req.body;
       //delete properties with blank strings from object
@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
     const sqlText = `INSERT INTO viewing (production_id, person_id, date, rating, comments) 
 	            VALUES ($1, $2, $3, $4, $5);`
     pool.query(sqlText, [v.production.production_id, v.user, v.date, v.rating, v.comments])
-  .then((result) => { res.send(200); })
+  .then((result) => { res.sendStatus(200); })
   .catch((err) => {
     console.log('Error completing INSERT view query', err);
     res.sendStatus(500);

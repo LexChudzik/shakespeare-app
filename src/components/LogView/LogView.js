@@ -20,7 +20,9 @@ class LogView extends Component {
     componentWillMount () {
         this.setState({user: this.props.user.id})
         const production_id = this.props.match.params.productionId;
-        axios.get(`/api/production/${production_id}`)
+        console.log(production_id);
+        
+        axios.get(`/api/detail/${production_id}`)
           .then((results) => {
             this.setState({production: results.data[0]});
             console.log(this.state);
@@ -47,9 +49,17 @@ class LogView extends Component {
         event.preventDefault();
         axios.post('/api/view', this.state)
         .then((results) => {
-            console.log(this.props.user.id);
-            
-            this.props.dispatch({type: 'FETCH_HISTORY', payload: this.props.user});
+            if (this.state.production.list_id) {
+                axios.delete(`/api/list/${this.state.list_id}`)
+                .then((results) => {
+                  this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
+                }).catch((error) => {
+                  console.log('error removing from to list', error);
+                  this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
+                })
+            } else {
+                this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user});
+            }
             alert('View logged.');
             this.props.history.push(`/home`);
         }).catch((error) => {
