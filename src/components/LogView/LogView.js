@@ -20,7 +20,9 @@ class LogView extends Component {
     componentWillMount () {
         this.setState({user: this.props.user.id})
         const production_id = this.props.match.params.productionId;
-        axios.get(`/api/production/${production_id}`)
+        console.log(production_id);
+        
+        axios.get(`/api/detail/${production_id}`)
           .then((results) => {
             this.setState({production: results.data[0]});
             console.log(this.state);

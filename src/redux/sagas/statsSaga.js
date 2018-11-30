@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 
-function playsSeen(views) {
+function findPlaysSeen(views) {
   let playIds = views.map(v => {
     return v.play_id
   });
@@ -13,13 +13,17 @@ function playsSeen(views) {
 function* updateStats(action) {
   try {
     const seen = action.payload.filter(p => p.viewing_id);
+    const seenLive = seen.filter(p => p.medium === 'live');
     // const allFilms = all.filter(v => v.medium === 'film');
     // const noLoose = all.filter(v => !v.loose_adapt);
     // const live = all.filter(v => v.medium === 'live');
-    // const playsSeenAll = playsSeen(all);
-    // const playsSeenLive = playsSeen(live);
+    const playsSeen = findPlaysSeen(seen);
+    const playsSeenLive = findPlaysSeen(seenLive);
     const stats = {
       seen: seen,
+      seenLive: seenLive,
+      playsSeen: playsSeen,
+      playsSeenLive: playsSeenLive
     };
 
   yield put( {type: 'SET_STATS', payload: stats } );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-//import Chart from 'chart.js';
+import Chart from 'chart.js';
 
 class Stats extends Component {
 
@@ -9,7 +9,8 @@ class Stats extends Component {
       return (
         <div>
           <h1>Stats</h1>
-          {JSON.stringify(this.props.stats)}
+          {this.props.stats.playsSeen && <p>You have seen {this.props.stats.playsSeen.length} of {this.props.plays.length} plays.</p>}
+          {this.props.stats.playsSeenLive && <p>You have seen {this.props.stats.playsSeenLive.length} of {this.props.plays.length} plays live.</p>}
         </div>
       )
     }

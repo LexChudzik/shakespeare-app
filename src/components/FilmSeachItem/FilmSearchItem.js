@@ -36,7 +36,7 @@ class FilmSearchItem extends Component {
                     production: p
                 })
             }
-        })
+        })        
     }
 
     checkTitle = () => {
@@ -54,14 +54,16 @@ class FilmSearchItem extends Component {
     // dispatch to save movie
     handleSave = (event) => {
         event.preventDefault();
-        if (this.state.production) {
+        if (this.state.production.production_id !== '') {
             console.log('already in');
-            this.props.history.push(`/log/${this.props.production.production_id}`);
+            this.props.history.push(`/log/${this.state.production.production_id}`);
         } else {
             axios.post('/api/production/film', this.state)
             .then((results) => {
                 this.props.dispatch({type: 'FETCH_PRODUCTIONS', payload: this.props.user });
                 let production_id = (results.data[0].id);
+                console.log(production_id);
+                
                 this.props.history.push(`/log/${production_id}`);
             }).catch((error) => {
                 console.log('error posting production to server', error);
