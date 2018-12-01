@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Chart from 'chart.js';
+//import Chart from 'chart.js';
 
 class Stats extends Component {
 
