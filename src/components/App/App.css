@@ -1,11 +1,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
-    background-color: #FFE5D9
+    background-color: #FFF7E5
 }
 
 h1 {
     text-align: center;
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 2.3em;
 }
 
 .alert {
@@ -33,7 +35,7 @@ input {
   text-align: center;
   background-color: #432E36;
   border-radius: 4px;
-  color: #FFDBB5;
+  color: #FFF7E5;
   min-height: 50px;
   min-width: 100px;
   outline:0;
@@ -45,7 +47,7 @@ input {
 }
 
 .main {
-    margin-left: 180px; /* Same as the width of the sidebar */
+    margin-left: 250px; /* Same as the width of the sidebar */
     padding: 0px 10px;
 }
 
@@ -67,15 +69,15 @@ ul{
     padding: 0;
 }
 
-.card {
+/* .card {
     background-color: #B89E97;
-    width: 30%;
+    width: 40%;
     align-content: center;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
     text-align: center;
-}
+} */
 
 button {
     display: block;
@@ -87,3 +89,9 @@ img {
     max-width: 300px;
     max-height: 500px;
 }
+
+.rating {
+    size: 3x;
+    color: yellow;
+}    
+

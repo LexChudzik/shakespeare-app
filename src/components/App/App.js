@@ -25,6 +25,12 @@ import List from '../List/List';
 
 import './App.css';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+library.add(far, faStar)
+
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
