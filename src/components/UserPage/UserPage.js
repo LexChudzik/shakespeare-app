@@ -7,7 +7,7 @@ class UserPage extends Component {
   render() {
     return (
       <div>
-        <h1>Productions</h1>
+        <h1>Upcoming Productions</h1>
         {this.props.productions.map(p => 
           !p.viewing_id && !p.list_id && (p.medium === 'live') && (Date(p.end_date) <= Date.now ) &&
           <ProductionDetail key={p.production_id} p={p} history={this.props.history}/>

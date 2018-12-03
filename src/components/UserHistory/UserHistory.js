@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ProductionDetail from '../ProductionDetail/ProductionDetail';
-import axios from 'axios';
 
 
 class UserHistory extends Component {

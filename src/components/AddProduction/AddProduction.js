@@ -39,11 +39,9 @@ class AddProduction extends Component {
     render() {
         return (
             <div>
+                <h1>Add Producution</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="theater">Theater:</label>
-                    <input required name="theater" id="theater" onChange={this.handleChange} value={this.state.theater} placeholder="Theater"/>
-
-                    <label htmlFor="image_url">Image Link:</label>
+                    <input required name="theater" id="theater" onChange={this.handleChange} value={this.state.theater} placeholder="Theater Company"/>
                     <input name="image_url" onChange={this.handleChange} value={this.state.image_url} placeholder="image url"/>
                     <input name="url" onChange={this.handleChange} value={this.state.url} placeholder="website"/>
                     <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
@@ -52,8 +50,8 @@ class AddProduction extends Component {
                             <option key={play.id} value={play.id}>{play.title}</option> 
                         ))}
                     </select>
-                    <input type="date" name="start_date" onChange={this.handleChange} value={this.state.start_date}/>
-                    <input type="date" name="end_date" onChange={this.handleChange} value={this.state.end_date}/>
+                    <input type="date" name="start_date" onChange={this.handleChange} value={this.state.start_date} placeholder="start date"/>
+                    <input type="date" name="end_date" onChange={this.handleChange} value={this.state.end_date} placeholder="end date"/>
                     <input name="location" onChange={this.handleChange} value={this.state.location} placeholder="location"/>
                     {/* <datalist id="plays" placeholder="play">
                         {this.props.plays.map(play => (
