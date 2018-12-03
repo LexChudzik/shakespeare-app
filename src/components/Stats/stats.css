@@ -1,0 +1,19 @@
+.donut-container {
+    width: 50%;
+    display: flex;
+}
+
+.bar-container {
+    width: 90%;
+    text-align: center;
+} 
+
+.chart-title {
+    font-family: 'IM Fell DW Pica', serif;
+}
+
+.charts-container {
+    align-content: center;
+    text-align: center;
+}
+

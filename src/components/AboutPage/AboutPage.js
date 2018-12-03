@@ -8,9 +8,15 @@ import React from 'react';
 const AboutPage = () => (
   <div>
     <div>
-      <p>
-        This about page is for anyone to read!
-      </p>
+      <h1>Technologies Used</h1>
+      <ul>
+        <li>JavaScript</li>
+        <li>Node.js</li>
+        <li>React Redux</li>
+        <li>chart.js</li>
+        <li>The Movie Database</li>
+        <li></li>
+      </ul>
     </div>
   </div>
 );
