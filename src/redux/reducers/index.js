@@ -6,6 +6,7 @@ import plays from './playsReducer';
 import films from './filmReducer';
 import production from './productionReducer';
 import stats from './statsReducer';
+import userHistory from './historyReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   films, //stores search results from tmdb
   production, //will all productions
   stats, //store stats
+  userHistory //stores history ordered by date
 });
 
 export default rootReducer;
