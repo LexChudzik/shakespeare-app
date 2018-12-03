@@ -40,7 +40,6 @@ app.use('/api/list', listRouter);
 app.use('/api/detail', detailRouter);
 
 // Serve static files
-app.use(express.static('build'));
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
   app.use(express.static('client/build'));
@@ -51,6 +50,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+app.use(express.static('build'));
 
 // App Set //
 const PORT = process.env.PORT || 5000;
