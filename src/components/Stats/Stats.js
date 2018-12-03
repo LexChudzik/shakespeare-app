@@ -91,7 +91,8 @@ class Stats extends Component {
               data = {{
                 labels: this.props.stats.allDuplicates.map(p => {return p.title}),
                       datasets: [{
-                        data: this.props.stats.allDuplicates.map(p => {return p.number})
+                        data: this.props.stats.allDuplicates.map(p => {return p.number}),
+                        backgroundColor: "#724F5C"
                       }]
               }}
               options={{

@@ -54,12 +54,14 @@ class AddProduction extends Component {
                     <input type="date" name="start_date" onChange={this.handleChange} value={this.state.start_date} placeholder="start date"/>
                     <p>End:</p>
                     <input type="date" name="end_date" onChange={this.handleChange} value={this.state.end_date} placeholder="end date"/>
+                    <br/>
                     <input name="location" onChange={this.handleChange} value={this.state.location} placeholder="location"/>
                     {/* <datalist id="plays" placeholder="play">
                         {this.props.plays.map(play => (
                             <option key={play.id} data-id={play.id}>{play.title}</option> 
                         ))}
                     </datalist> */}
+                    <br/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
