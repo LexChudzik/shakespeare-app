@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //add to list
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   const l = req.body;
   const sqlText = `INSERT INTO list (production_id, person_id)
                     VALUES ($1, $2);`;
@@ -17,7 +18,7 @@ router.post('/', (req, res) => {
 });
 
 //remove from list
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   const sqlText = `DELETE FROM list WHERE id = $1;`;
   pool.query(sqlText, [id])

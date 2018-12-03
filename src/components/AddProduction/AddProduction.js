@@ -50,7 +50,9 @@ class AddProduction extends Component {
                             <option key={play.id} value={play.id}>{play.title}</option> 
                         ))}
                     </select>
+                    <p>Start:</p>
                     <input type="date" name="start_date" onChange={this.handleChange} value={this.state.start_date} placeholder="start date"/>
+                    <p>End:</p>
                     <input type="date" name="end_date" onChange={this.handleChange} value={this.state.end_date} placeholder="end date"/>
                     <input name="location" onChange={this.handleChange} value={this.state.location} placeholder="location"/>
                     {/* <datalist id="plays" placeholder="play">

@@ -9,7 +9,7 @@ class UserPage extends Component {
       <div>
         <h1>Upcoming Productions</h1>
         {this.props.productions.map(p => 
-          !p.viewing_id && !p.list_id && (p.medium === 'live') && (Date(p.end_date) <= Date.now ) &&
+          !p.viewing_id && !p.list_id && (p.medium === 'live') && (p.end_date) && (Date(p.end_date) <= Date.now ) &&
           <ProductionDetail key={p.production_id} p={p} history={this.props.history}/>
         )}
       </div>
