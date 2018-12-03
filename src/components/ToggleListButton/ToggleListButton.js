@@ -49,7 +49,7 @@ class ToggleListButton extends Component {
   render() {
     if (this.state.list_id) {
       return (
-        <button onClick={this.removeFromList}>Take Off List</button>
+        <button onClick={this.removeFromList}>Remove from List</button>
       )} else {
         return(
           <button onClick={this.checkProductions}>Add to List</button>

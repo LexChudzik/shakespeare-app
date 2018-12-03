@@ -26,6 +26,11 @@ p {
     margin: 2px;
 }
 
+.card-buttons {
+    display: flex;
+    justify-content: space-around;
+} 
+
 .card-buttons > button {
     display: inline-block;
     padding: 0.35em 1.2em;

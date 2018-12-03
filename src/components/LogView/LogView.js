@@ -4,6 +4,13 @@ import Rating from 'react-rating';
 import ProductionDetail from '../ProductionDetail/ProductionDetail';
 import axios from 'axios';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+library.add(far, faStar)
+
 
 const emptyState = {
     rating: 0,
@@ -47,6 +54,7 @@ class LogView extends Component {
     // send state to index to search 
     handleSubmit = (event) => {
         event.preventDefault();
+
         axios.post('/api/view', this.state)
         .then((results) => {
             if (this.state.production.list_id) {
@@ -71,11 +79,14 @@ class LogView extends Component {
     render() {
     return (
         <div>
-            <ProductionDetail p={this.state.production}/>
+            <ProductionDetail p={this.state.production} log={'log'}/>
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="date">Date seen:</label>
                 <input required id="date" name="date" type="date" onChange={this.handleChange} value={this.state.date}/>
-                <Rating name="rating" onChange={this.handleRate} initialRating={this.state.rating}/>
+                <Rating name="rating" onChange={this.handleRate} initialRating={this.state.rating}
+                            emptySymbol={<FontAwesomeIcon className="rating" icon={["far", "star"]} />}
+                            fullSymbol={<FontAwesomeIcon className="rating" icon={["fas", "star"]} />}
+                            />
                 <br/>
                 <label htmlFor="comments">Comments:</label>
                 <textarea name="comments" id="comments" onChange={this.handleChange} value={this.state.comments}/>

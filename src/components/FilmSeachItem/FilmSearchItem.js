@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import ToggleListButton from '../ToggleListButton/ToggleListButton';
+import './FilmSearchItem.css';
 
 class FilmSearchItem extends Component {
 
@@ -53,7 +54,7 @@ class FilmSearchItem extends Component {
 
     // dispatch to save movie
     handleSave = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         if (this.state.production.production_id !== '') {
             console.log('already in');
             this.props.history.push(`/log/${this.state.production.production_id}`);
@@ -84,11 +85,18 @@ class FilmSearchItem extends Component {
     render() {
         return (
             <li className="card">
-                <h3>{this.props.movie.title}</h3>
-                <p>{this.props.movie.release_date}</p>
-                {this.props.movie.poster_path &&
+
+                <div className="card-image">
+                    {this.props.movie.poster_path &&
                     <img src={`https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}`} alt="poster"/>}
-                <form onSubmit={this.handleSave}>
+                </div>
+
+                <div className="card-title">
+                    <h3>{this.props.movie.title}</h3>
+                </div>
+
+                <div className="card-subtitle">
+                    <p>{this.props.movie.release_date}</p>
                     {(this.state.match === false) && 
                     <select required name="play_id" onChange={this.handleChange} value={this.state.play_id}>
                         <option value='' disabled hidden>Select Play</option>
@@ -96,11 +104,15 @@ class FilmSearchItem extends Component {
                             <option key={play.id} value={play.id}>{play.title}</option> 
                         ))}
                     </select>}
-                    <label htmlFor="loose_adapt">This is a loose adaptaion:</label>
-                    <input type="checkbox" id="loose_adapt" value={this.state.loose_adapt} name="loose_adapt" onChange={this.handleChange}/>
-                    <button type="submit">Log Viewing</button>
-                </form>
-                {!this.state.production.viewing_id && <ToggleListButton p={this.state.production} m={this.state}/>}
+                </div>
+
+                <div className="card-buttons">  
+                    {!this.state.production.viewing_id && <ToggleListButton p={this.state.production} m={this.state}/>}
+                    <button onClick={this.handleSave}>Log Viewing</button>
+                </div>
+                
+                    {/* <label htmlFor="loose_adapt">This is a loose adaptaion:</label>
+                    <input type="checkbox" id="loose_adapt" value={this.state.loose_adapt} name="loose_adapt" onChange={this.handleChange}/> */}
             </li>
         )
     }

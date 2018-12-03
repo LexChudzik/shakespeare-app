@@ -4,6 +4,13 @@ import Rating from 'react-rating';
 import './ProductionDetail.css';
 import ToggleListButton from '../ToggleListButton/ToggleListButton';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+library.add(far, faStar)
+
 
 class ProductionDetail extends Component {
 
@@ -45,14 +52,20 @@ class ProductionDetail extends Component {
 
         <div className="card-history">
           {this.props.p.date && <p>View Date: {this.dateFormat(this.props.p.date)} </p> }
-          {this.props.p.rating && <Rating initialRating={this.props.p.rating} readonly/>}
+          {this.props.p.rating && <Rating 
+            initialRating={this.props.p.rating} 
+            readonly
+            emptySymbol={<FontAwesomeIcon className="rating" icon={["far", "star"]} />}
+            fullSymbol={<FontAwesomeIcon className="rating" icon={["fas", "star"]} />}
+            />}
           {this.props.p.comments && <p>{this.props.p.comments}</p>}
         </div>
 
+        {!this.props.log  &&  
         <div className="card-buttons">
           {!this.props.p.viewing_id && <ToggleListButton p={this.props.p}/>} 
-          {!this.props.p.viewing_id && <button onClick={this.goToLog}>LOG VIEW</button>}
-        </div>
+          {!this.props.p.viewing_id && <button onClick={this.goToLog}>Log Viewing</button>}
+        </div>}
 
       </div>
   )}
