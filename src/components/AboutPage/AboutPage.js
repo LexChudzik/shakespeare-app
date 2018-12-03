@@ -9,14 +9,14 @@ const AboutPage = () => (
   <div>
     <div>
       <h1>Technologies Used</h1>
-      <ul>
-        <li>JavaScript</li>
-        <li>Node.js</li>
-        <li>React Redux</li>
-        <li>chart.js</li>
-        <li>The Movie Database</li>
-        <li></li>
-      </ul>
+
+        <h3>JavaScript</h3>
+        <h3>Node.js</h3>
+        <h3>React Redux</h3>
+        <h3>PostgreSQL</h3>
+        <h3>chart.js</h3>
+        <h3>The Movie Database</h3>
+
     </div>
   </div>
 );
