@@ -4,13 +4,7 @@ import Rating from 'react-rating';
 import ProductionDetail from '../ProductionDetail/ProductionDetail';
 import axios from 'axios';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-
-library.add(far, faStar)
-
 
 const emptyState = {
     rating: 0,
@@ -36,7 +30,7 @@ class LogView extends Component {
           }).catch((error) => {
             console.log('error getting production from server', error);
           })
-      }
+    }
 
     // log input search
     handleChange = (event) => {

@@ -4,13 +4,8 @@ import Rating from 'react-rating';
 import './ProductionDetail.css';
 import ToggleListButton from '../ToggleListButton/ToggleListButton';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-
-library.add(far, faStar)
-
+import axios from 'axios';
 
 class ProductionDetail extends Component {
 
@@ -22,6 +17,17 @@ class ProductionDetail extends Component {
   goToLog = () => {
     console.log(this.props.p);
     this.props.history.push(`/log/${this.props.p.production_id}`)
+  }
+
+  deleteLog = () => {
+    if ( window.confirm('Delete this log?') ) {
+      axios.delete(`/api/history/${this.props.p.viewing_id}`)
+      .then((results) => {
+        this.props.dispatch({type:'FETCH_HISTORY', payload: this.props.user})
+      }).catch((error) => {
+        console.log('error getting production from server', error);
+      })
+    }
   }
 
   render() {
@@ -51,7 +57,7 @@ class ProductionDetail extends Component {
         </div>
 
         <div className="card-history">
-          {this.props.p.date && <p>View Date: {this.dateFormat(this.props.p.date)} </p> }
+          {this.props.p.date && <p>Seen {this.dateFormat(this.props.p.date)} </p> }
           {this.props.p.rating && <Rating 
             initialRating={this.props.p.rating} 
             readonly
@@ -65,10 +71,15 @@ class ProductionDetail extends Component {
         <div className="card-buttons">
           {!this.props.p.viewing_id && <ToggleListButton p={this.props.p}/>} 
           {!this.props.p.viewing_id && <button onClick={this.goToLog}>Log Viewing</button>}
+          {this.props.p.viewing_id && <button onClick={this.deleteLog}>Delete Log</button>}
         </div>}
 
       </div>
   )}
 }
 
-export default connect()(ProductionDetail);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(ProductionDetail);
