@@ -1,15 +1,23 @@
-# Prime Project
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# See Shakespeare
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+A web application which allows users to track productions of Shakespeare plays they have seen and see how many plays they have seen total. 
 
-## Download (Don't Clone) This Repository
+## Built With
 
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
+- JavaScript
+- React.js
+- Redux.js
+- Chart.js
+- react-chartjs-2
+- PostgreSQL
+- HTML5
+- CSS
 
-## Prerequisites
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
 
@@ -17,83 +25,37 @@ Before you get started, make sure you have the following software installed on y
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
-
-Create a new database called `prime_app` and create a `person` table:
-
-```SQL
-CREATE TABLE "person" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
-
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
-
-## Development Setup Instructions
+### Installing
 
 * Run `npm install`
-* Create a `.env` file at the root of the project and paste this line into the file:
+* Create a `.env` file at the root of the project and create a random, long password, then set the SEREVER_SESSION_SECRET:
     ```
-    SERVER_SESSION_SECRET=superDuperSecret
+    SERVER_SESSION_SECRET=password
     ```
-    While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
+* You will also need a api key from [The Movie Database](https://www.themoviedb.org/documentation/api). Set this in the .env file as TMDB_API_KEY
 * Start postgres if not running already by using `brew services start postgresql`
+* See database.sql for database setup
 * Run `npm run server`
 * Run `npm run client`
 * Navigate to `localhost:3000`
 
-## Debugging
+### Completed Features
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+- [x] Adding live productions to db
+- [x] Finding filmed productions through tmdb search
+- [x] Adding productions to user history or to-see lists
+- [x] User statistics - total of plays seen, breakdown by genre, and plays seen multiple times
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+### Next Steps
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+- [ ] Filter statistics based on live vs film productions
+- [ ] Filter and sort history
+- [ ] Search films by year in addition to title
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+## Authors
 
+* Lex Chudzik
 
-## Production Build
+## Acknowledgments
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm start`
-* Navigate to `localhost:5000`
-
-## Lay of the Land
-
-* `src/` contains the React application
-* `public/` contains static assets for the client-side
-* `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-* `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-* src/components
-  * App/App
-  * Footer/Footer
-  * Nav/Nav
-  * AboutPage/AboutPage
-  * InfoPage/InfoPage
-  * UserPage/UserPage
-  * LoginPage/LoginPage
-  * RegisterPage/RegisterPage
-  * LogOutButton/LogOutButton
-  * ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+* [Open Source Shakespeare](https://www.opensourceshakespeare.org/) for base play data
